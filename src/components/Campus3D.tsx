@@ -142,7 +142,7 @@ export default function Campus3D({
         {/* ground */}
         <svg width="1000" height="1400" style={{ position: "absolute", inset: 0 }}>
           <rect width="1000" height="1400" rx="30" fill="var(--map-bg)" stroke="var(--border)" strokeWidth="4" />
-          <rect x="130" y="930" width="220" height="300" rx="20" fill="var(--map-grass)" opacity="0.5" />
+          <rect x="130" y="930" width="220" height="300" rx="20" fill="var(--map-mint)" opacity="0.5" />
           <rect x="185" y="320" width="70" height="560" rx="35" fill="var(--map-water)" opacity="0.5" />
           {EDGES.map(([a, b]) => {
             const p = NODES[a];
@@ -170,7 +170,7 @@ export default function Campus3D({
             const color = isHover
               ? "var(--primary)"
               : isActive
-                ? "var(--map-admin-active)"
+                ? (b.id === "admin" ? "var(--map-admin-active)" : "var(--map-building-active)")
                 : b.id === "admin"
                   ? "var(--map-admin)"
                   : "var(--map-building)";

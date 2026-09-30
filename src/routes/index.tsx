@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import CampusMap from "@/components/CampusMap";
+import Campus3D from "@/components/Campus3D";
 import NavPanel from "@/components/NavPanel";
 import BlockSheet from "@/components/BlockSheet";
 import {
@@ -67,6 +68,8 @@ function Index() {
   const [error, setError] = useState<string | null>(null);
   const [openBlock, setOpenBlock] = useState<string | null>(null);
   const [activeBlock, setActiveBlock] = useState<string | null>(null);
+  const [mode, setMode] = useState<"2d" | "3d">("2d");
+  const [openFloor, setOpenFloor] = useState<FloorKey>("ground");
 
   const byValue = (v: string) => destinations.find((d) => d.value === v);
 
@@ -163,7 +166,9 @@ function Index() {
           />
           {openBlock && (
             <BlockSheet
+              key={openBlock + openFloor}
               blockId={openBlock}
+              initialFloor={openFloor}
               onClose={() => setOpenBlock(null)}
               onNavigate={navigateToRoom}
             />
@@ -176,6 +181,7 @@ function Index() {
                   <button
                     key={b.id}
                     onClick={() => {
+                      setOpenFloor("ground");
                       setOpenBlock(b.id);
                       setActiveBlock(b.id);
                     }}
@@ -190,14 +196,40 @@ function Index() {
         </div>
 
         <div className="h-[55vh] w-full md:h-[calc(100vh-68px)] md:flex-1">
-          <CampusMap
-            routePath={routePath}
-            activeBlock={activeBlock}
-            onSelectBlock={(id) => {
-              setOpenBlock(id);
-              setActiveBlock(id);
-            }}
-          />
+          <div className="relative h-full w-full">
+            {mode === "2d" ? (
+              <CampusMap
+                routePath={routePath}
+                activeBlock={activeBlock}
+                onSelectBlock={(id) => {
+                  setOpenFloor("ground");
+                  setOpenBlock(id);
+                  setActiveBlock(id);
+                }}
+              />
+            ) : (
+              <Campus3D
+                routePath={routePath}
+                activeBlock={activeBlock}
+                onSelectFloor={(id, f) => {
+                  setOpenFloor(f);
+                  setOpenBlock(id);
+                  setActiveBlock(id);
+                }}
+              />
+            )}
+            <div className="absolute left-1/2 top-3 z-20 flex -translate-x-1/2 gap-1 rounded-full border border-border bg-card p-1">
+              {(["2d", "3d"] as const).map((m) => (
+                <button
+                  key={m}
+                  onClick={() => setMode(m)}
+                  className={`rounded-full px-4 py-1 text-xs font-bold ${mode === m ? "bg-primary text-primary-foreground" : "text-muted-foreground"}`}
+                >
+                  {m.toUpperCase()} view
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       </main>
     </div>
