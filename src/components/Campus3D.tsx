@@ -203,7 +203,7 @@ export default function Campus3D({
       </div>
 
       {/* controls */}
-      <div className="absolute right-3 top-3 flex flex-col gap-2">
+      <div className="absolute right-3 top-3 flex flex-col gap-2" onPointerDown={(e) => e.stopPropagation()}>
         <button className="chip justify-center" onClick={() => setExplode((v) => !v)}>
           {explode ? "Stack floors" : "Separate floors"}
         </button>
