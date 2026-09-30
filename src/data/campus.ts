@@ -184,7 +184,6 @@ export const EDGES: [string, string][] = [
   ["adminFront", "adminDoor"],
   ["fork", "plaza"],
   ["plaza", "ringBR"],
-  ["plaza", "ringBC"],
   ["ringBR", "ringBC"],
   ["ringBC", "ringBL"],
   ["ringBL", "ringML"],
