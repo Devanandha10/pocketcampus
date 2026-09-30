@@ -42,7 +42,7 @@ function floorLabel(f: FloorKey) {
 
 function outdoorSteps(path: string[], destLabel: string): string[] {
   const steps: string[] = [];
-  const start = NODE_LABELS[path[0]] ?? "your start";
+  const start = NODE_LABELS[path[0]!] ?? "your start";
   const mins = walkMinutes(path);
   const waypoints = path
     .slice(1, -1)

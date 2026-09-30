@@ -260,7 +260,7 @@ export function findPath(from: string, to: string): string[] | null {
   let cur: string | null = to;
   while (cur) {
     path.unshift(cur);
-    cur = prev[cur];
+    cur = prev[cur] ?? null;
   }
   return path;
 }
@@ -268,8 +268,8 @@ export function findPath(from: string, to: string): string[] | null {
 export function pathLength(path: string[]): number {
   let d = 0;
   for (let i = 1; i < path.length; i++) {
-    const a = NODES[path[i - 1]];
-    const b = NODES[path[i]];
+    const a = NODES[path[i - 1]!]!;
+    const b = NODES[path[i]!]!;
     d += Math.hypot(b.x - a.x, b.y - a.y);
   }
   return d;

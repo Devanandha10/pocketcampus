@@ -70,7 +70,7 @@ export default function CampusMap({ routePath, activeBlock, onSelectBlock }: Pro
       };
     } else if (pointers.current.size === 2) {
       drag.current = null;
-      const [a, b] = [...pointers.current.values()];
+      const [a, b] = [...pointers.current.values()] as [{x:number;y:number},{x:number;y:number}];
       const rect = containerRef.current!.getBoundingClientRect();
       pinch.current = {
         dist: Math.hypot(a.x - b.x, a.y - b.y),
@@ -87,7 +87,7 @@ export default function CampusMap({ routePath, activeBlock, onSelectBlock }: Pro
     if (!pointers.current.has(e.pointerId)) return;
     pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
     if (pointers.current.size === 2 && pinch.current) {
-      const [a, b] = [...pointers.current.values()];
+      const [a, b] = [...pointers.current.values()] as [{x:number;y:number},{x:number;y:number}];
       const dist = Math.hypot(a.x - b.x, a.y - b.y);
       const p = pinch.current;
       const next = clamp((p.z * dist) / p.dist, MIN_ZOOM, MAX_ZOOM);
@@ -110,7 +110,7 @@ export default function CampusMap({ routePath, activeBlock, onSelectBlock }: Pro
   const reset = () => setView({ z: 1, x: 0, y: 0 });
 
   const routePoints = routePath
-    ? routePath.map((n) => `${NODES[n].x},${NODES[n].y}`).join(" ")
+    ? routePath.map((n) => `${NODES[n]!.x},${NODES[n]!.y}`).join(" ")
     : "";
 
   const blockProps = (id: string) => ({
@@ -289,10 +289,10 @@ export default function CampusMap({ routePath, activeBlock, onSelectBlock }: Pro
                 strokeDasharray="26 22"
                 className="route-dash"
               />
-              <circle cx={NODES[routePath[0]].x} cy={NODES[routePath[0]].y} r="14" fill="var(--route)" />
+              <circle cx={NODES[routePath[0]!]!.x} cy={NODES[routePath[0]!]!.y} r="14" fill="var(--route)" />
               <circle
-                cx={NODES[routePath[routePath.length - 1]].x}
-                cy={NODES[routePath[routePath.length - 1]].y}
+                cx={NODES[routePath[routePath.length - 1]!]!.x}
+                cy={NODES[routePath[routePath.length - 1]!]!.y}
                 r="16"
                 fill="none"
                 stroke="var(--route)"
