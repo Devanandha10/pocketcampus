@@ -5,11 +5,12 @@ type Props = {
   blockId: string;
   onClose: () => void;
   onNavigate: (blockId: string, floor: FloorKey, room: string) => void;
+  initialFloor?: FloorKey;
 };
 
-export default function BlockSheet({ blockId, onClose, onNavigate }: Props) {
+export default function BlockSheet({ blockId, onClose, onNavigate, initialFloor }: Props) {
   const block = BLOCKS.find((b) => b.id === blockId)!;
-  const [floor, setFloor] = useState<FloorKey>("ground");
+  const [floor, setFloor] = useState<FloorKey>(initialFloor ?? "ground");
 
   return (
     <div className="panel flex max-h-[70vh] flex-col overflow-hidden md:max-h-full">
