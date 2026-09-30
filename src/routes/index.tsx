@@ -189,7 +189,7 @@ function Index() {
           )}
         </div>
 
-        <div className="h-[55vh] w-full md:h-auto md:min-h-[calc(100vh-64px)] md:flex-1">
+        <div className="h-[55vh] w-full md:h-[calc(100vh-68px)] md:flex-1">
           <CampusMap
             routePath={routePath}
             activeBlock={activeBlock}

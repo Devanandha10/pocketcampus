@@ -133,7 +133,7 @@ export default function CampusMap({ routePath, activeBlock, onSelectBlock }: Pro
       className="relative h-full w-full touch-none overflow-hidden bg-map-bg select-none"
     >
       <div
-        className="h-full w-full origin-top-left"
+        className="absolute inset-0 origin-top-left"
         style={{ transform: `translate(${view.x}px, ${view.y}px) scale(${view.z})` }}
       >
         <svg viewBox="0 0 1000 1400" className="h-full w-full" preserveAspectRatio="xMidYMid meet">
